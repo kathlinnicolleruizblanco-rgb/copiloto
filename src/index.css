@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --primary: #C8A96E;
+  --secondary: #7B9E87;
+  --bg-light: #F7F4EF;
+  --bg-dark: #1a1a1a;
+  --text-main: #1a1a1a;
+  --text-muted: #666;
+  --font-title: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg-light);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-light);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Estilos de la navegación */
+.pg-nav {
+  background: var(--bg-dark);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+}
+
+.pg-nav-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.pg-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--primary);
+  transition: var(--transition);
+}
+
+.pg-dot2 {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--secondary);
+  margin-left: -8px;
+  transition: var(--transition);
+}
+
+.pg-nav-logo:hover .pg-dot { transform: scale(1.1); }
+.pg-nav-logo:hover .pg-dot2 { transform: translateX(5px); }
+
+.pg-nav-links {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+  margin-left: 2rem;
+}
+
+.pg-nav-links a {
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 400;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.pg-nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: var(--transition);
+}
+
+.pg-nav-links a:hover, .pg-nav-links a.active {
+  color: #fff;
+}
+
+.pg-nav-links a.active::after {
+  width: 100%;
+}
+
+.pg-search {
+  display: flex;
+  align-items: center;
+  background: #2d2d2d;
+  border-radius: 25px;
+  padding: 0 16px;
+  gap: 10px;
+  height: 40px;
+  min-width: 250px;
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.pg-search:focus-within {
+  border-color: var(--primary);
+  background: #333;
+}
+
+.pg-search input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Hero Section */
+.pg-hero {
+  position: relative;
+  height: 500px;
+  background: linear-gradient(135deg, #2C2C2A 0%, #3d3d3a 50%, #1a1a18 100%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.pg-hero-content {
+  padding: 0 5%;
+  z-index: 2;
+  max-width: 600px;
+}
+
+.pg-hero-tag {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.pg-hero-title {
+  font-family: var(--font-title);
+  font-size: 64px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+
+.pg-hero-title span { color: var(--primary); }
+
+.pg-hero-sub {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 32px;
+  line-height: 1.8;
+}
+
+.pg-hero-btn {
+  background: var(--primary);
+  color: var(--bg-dark);
+  border: none;
+  padding: 16px 40px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pg-hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(200,169,110,0.3);
+}
+
+/* Cards y Grillas */
+.pg-section { padding: 5rem 5%; }
+
+.pg-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.pg-section-title {
+  font-family: var(--font-title);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.pg-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.pg-card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid #eee;
+}
+
+.pg-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.pg-card-img {
+  aspect-ratio: 1;
+  background: #F0ECE4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pg-card-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.pg-card-body { padding: 24px; }
+
+.pg-card-cat {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.pg-card-name {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.pg-card-price {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Footer y Otros */
+.pg-footer {
+  background: #111;
+  padding: 5rem 5% 2rem;
+  color: #fff;
+}
+
+.pg-contact-form {
+  background: #222;
+  padding: 30px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.pg-cf-input, .pg-cf-textarea {
+  background: #333;
+  border: 1px solid #444;
+  border-radius: 12px;
+  padding: 15px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.pg-cf-btn {
+  background: var(--primary);
+  color: var(--bg-dark);
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.pg-cf-btn:hover { opacity: 0.9; }
