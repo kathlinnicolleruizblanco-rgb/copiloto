@@ -29,6 +29,7 @@ const App: React.FC = () => {
     setLoading(true);
     try {
       const { data, error } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+      if (error) throw error;
       if (data && data.length > 0) {
         setProducts(data);
       } else {
