@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase } from './lib/supabaseClient';
 import OfferModal from './components/OfferModal';
+import LoginModal from './components/LoginModal';
 
 // Tipos
 interface Product {
@@ -16,6 +17,33 @@ const App: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
+  const deleteProduct = async (id: string) => {
+    if (!window.confirm('¿Seguro que deseas eliminar este producto?')) return;
+    const { error } = await supabase.from('products').delete().eq('id', id);
+    if (error) alert('Error al eliminar: ' + error.message);
+    else fetchProducts();
+  };
 
   // Datos mock para visualización inicial rápida
   const mockProducts: Product[] = [
@@ -87,6 +115,23 @@ const App: React.FC = () => {
           >
             Contacto
           </a>
+          {session ? (
+            <a 
+              href="#!" 
+              onClick={(e) => { e.preventDefault(); handleLogout(); }}
+              style={{ color: '#C8A96E', fontWeight: 'bold' }}
+            >
+              Salir (Admin)
+            </a>
+          ) : (
+            <a 
+              href="#!" 
+              onClick={(e) => { e.preventDefault(); setIsLoginModalOpen(true); }}
+              style={{ color: '#aaa', fontSize: '12px' }}
+            >
+              Admin
+            </a>
+          )}
         </div>
         <div className="pg-search">
           <span style={{ color: '#666' }}>⌕</span>
@@ -130,6 +175,18 @@ const App: React.FC = () => {
                   <div className="pg-card-cat">{product.category}</div>
                   <h3 className="pg-card-name">{product.name}</h3>
                   <div className="pg-card-price">${product.price.toLocaleString()}</div>
+                  {session && (
+                    <button 
+                      onClick={(e) => { e.stopPropagation(); deleteProduct(product.id); }}
+                      style={{
+                        marginTop: '15px', background: '#e74c3c', color: 'white', 
+                        border: 'none', padding: '8px', borderRadius: '8px', 
+                        cursor: 'pointer', width: '100%', fontSize: '12px', fontWeight: 'bold'
+                      }}
+                    >
+                      Eliminar Producto (Admin)
+                    </button>
+                  )}
                 </div>
               </div>
             ))
@@ -157,6 +214,11 @@ const App: React.FC = () => {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
         onSuccess={fetchProducts}
+      />
+      
+      <LoginModal 
+        isOpen={isLoginModalOpen} 
+        onClose={() => setIsLoginModalOpen(false)} 
       />
 
       {/* Footer / Contacto */}
