@@ -331,3 +331,61 @@ body {
 }
 
 .pg-cf-btn:hover { opacity: 0.9; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .pg-nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 1rem;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .pg-nav-logo {
+    margin-right: auto;
+  }
+  .pg-nav-links {
+    margin-left: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    order: 3;
+  }
+  .pg-search {
+    min-width: 0;
+    width: 100%;
+    order: 2;
+  }
+  .pg-hero {
+    flex-direction: column;
+    height: auto;
+    padding: 4rem 0;
+    text-align: center;
+  }
+  .pg-hero-content {
+    padding: 0 1.5rem;
+  }
+  .pg-hero-title {
+    font-size: 40px;
+  }
+  .pg-hero-img {
+    margin-top: 2rem;
+    display: none; /* Opcional: ocultar la imagen decorativa en móvil */
+  }
+  .pg-section {
+    padding: 3rem 1.5rem;
+  }
+  .pg-section-title {
+    font-size: 24px;
+  }
+  .pg-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .pg-footer {
+    padding: 3rem 1.5rem 2rem;
+  }
+}
+
